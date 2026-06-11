@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlaceUp Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="pageTransitionOverlay" class="page-transition-overlay"></div>
+
+<div class="container">
+    <nav>
+        <div>PlaceUp Mock Test</div>
+        <a href="index.html" data-nav>Back to Home</a>
+        <button type="button" class="theme-toggle" data-theme-toggle>Dark Mode</button>
+</nav>
+    <div class="header">
+        <div>
+            <h1>Mock Test Practice</h1>
+            <p>Answer 5 questions in a timed mock test. Use Previous / Next to navigate and Submit when ready.</p>
+            <p id="mockTestWelcome" style="margin-top: 10px; color: #475569;"></p>
+        </div>
+        <div class="timer" id="timer">Time remaining: 10:00</div>
+    </div>
+    <div class="card">
+        <div class="meta">
+            <span id="questionLabel">Question 1 of 5</span>
+            <span id="instructions">Type your answer below, then use Next or Submit.</span>
+        </div>
+        <div class="question-box">
+            <h2 id="questionText">Question text goes here</h2>
+            <textarea id="answerInput" placeholder="Type your answer here..."></textarea>
+        </div>
+        <div class="actions">
+            <button class="button-secondary" id="prevBtn" type="button">Previous Question</button>
+            <button class="button-secondary" id="clearBtn" type="button">Clear Answer</button>
+            <button class="button-secondary" id="nextBtn" type="button">Next Question</button>
+            <button class="button-primary" id="submitBtn" type="button">Submit Test</button>
+        </div>
+        <div class="summary" id="resultSummary" style="display: none;">
+            <h3>Mock Test Submitted</h3>
+            <p id="resultText"></p>
+        </div>
+    </div>
+</div>
+<script>
+const questions = [
+    '1. Introduce yourself and mention one strength you bring to a team.',
+    '2. Describe a technical achievement you are proud of.',
+    '3. How do you prepare before attending an interview?',
+    '4. Explain how you manage your time when working on important tasks.',
+    '5. What problem-solving strategy do you use when you face a challenge?'
+];
+const answers = Array(questions.length).fill('');
+let currentQuestion = 0;
+let remainingSeconds = 600;
+const questionLabel = document.getElementById('questionLabel');
+const questionText = document.getElementById('questionText');
+const answerInput = document.getElementById('answerInput');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const timerEl = document.getElementById('timer');
+const resultSummary = document.getElementById('resultSummary');
+const resultText = document.getElementById('resultText');
+let timerInterval;
+// expose some variables to global window for shared scripts
+window.questions = questions;
+window.answers = answers;
+window.currentQuestion = currentQuestion;
+window.resultSummary = resultSummary;
+window.resultText = resultText;
+window.submitBtn = submitBtn;
+window.nextBtn = nextBtn;
+window.prevBtn = prevBtn;
+window.clearBtn = clearBtn;
+window.answerInput = answerInput;
+
+function renderQuestion() {
+    questionLabel.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    questionText.textContent = questions[currentQuestion];
+    answerInput.value = answers[currentQuestion] || '';
+    prevBtn.disabled = currentQuestion === 0;
+    nextBtn.disabled = currentQuestion === questions.length - 1;
+    if (currentQuestion === questions.length - 1) {
+        nextBtn.textContent = 'Last Question';
+    } else {
+        nextBtn.textContent = 'Next Question';
+    }
+    // keep the global reference in sync
+    window.currentQuestion = currentQuestion;
+}
+
+function saveAnswer() {
+    answers[currentQuestion] = answerInput.value.trim();
+    localStorage.setItem('placeup_mock_answers', JSON.stringify(answers));
+}
+
+function updateTimer() {
+    const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
+    const seconds = String(remainingSeconds % 60).padStart(2, '0');
+    if (remainingSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerEl.textContent = 'Time remaining: 00:00';
+        return;
+    }
+    timerEl.textContent = `Time remaining: ${minutes}:${seconds}`;
+}
+
+function submitTest(autoSubmitted = false) {
+    saveAnswer();
+    const answeredCount = answers.filter(answer => answer.length > 0).length;
+    const unansweredCount = questions.length - answeredCount;
+    resultSummary.style.display = 'block';
+    resultText.innerHTML = `You completed the mock test ${autoSubmitted ? 'automatically' : 'successfully'}.<br><br>` +
+        `Answered questions: <strong>${answeredCount}</strong><br>` +
+        `Unanswered questions: <strong>${unansweredCount}</strong><br><br>` +
+        `Your responses are saved for review.`;
+    submitBtn.disabled = true;
+    nextBtn.disabled = true;
+    prevBtn.disabled = true;
+    clearBtn.disabled = true;
+    answerInput.disabled = true;
+    
+    // Save to localStorage for persistence
+    localStorage.setItem('placeup_mock_answers', JSON.stringify(answers));
+    localStorage.setItem('placeup_mock_submitted', 'true');
+}
+
+// Event listeners for buttons
+prevBtn.addEventListener('click', () => {
+    saveAnswer();
+    if (currentQuestion > 0) {
+        currentQuestion -= 1;
+        renderQuestion();
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    saveAnswer();
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion += 1;
+        renderQuestion();
+    }
+});
+
+clearBtn.addEventListener('click', () => {
+    answerInput.value = '';
+    answers[currentQuestion] = '';
+    saveAnswer();
+});
+
+submitBtn.addEventListener('click', () => {
+    submitTest(false);
+});
+
+answerInput.addEventListener('input', () => {
+    answers[currentQuestion] = answerInput.value;
+});
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const storedSubmitted = localStorage.getItem('placeup_mock_submitted');
+    const storedAnswers = localStorage.getItem('placeup_mock_answers');
+    
+    if (storedAnswers) {
+        try {
+            const parsed = JSON.parse(storedAnswers);
+            if (Array.isArray(parsed)) {
+                parsed.forEach((val, i) => {
+                    answers[i] = val || '';
+                });
+            }
+        } catch (err) {
+            console.error('Failed to load saved answers', err);
+            localStorage.removeItem('placeup_mock_answers');
+        }
+    }
+
+    if (storedSubmitted === 'true') {
+        const answeredCount = answers.filter(a => a && a.length > 0).length;
+        const unansweredCount = questions.length - answeredCount;
+        resultSummary.style.display = 'block';
+        resultText.innerHTML = `You completed the mock test successfully.<br><br>` +
+            `Answered questions: <strong>${answeredCount}</strong><br>` +
+            `Unanswered questions: <strong>${unansweredCount}</strong><br><br>` +
+            `Your responses are saved for review.`;
+        submitBtn.disabled = true;
+        nextBtn.disabled = true;
+        prevBtn.disabled = true;
+        clearBtn.disabled = true;
+        answerInput.disabled = true;
+    } else {
+        resultSummary.style.display = 'none';
+        submitBtn.disabled = false;
+        nextBtn.disabled = false;
+        prevBtn.disabled = false;
+        clearBtn.disabled = false;
+        answerInput.disabled = false;
+    }
+
+    renderQuestion();
+    timerInterval = setInterval(() => {
+        if (remainingSeconds > 0) {
+            remainingSeconds -= 1;
+            updateTimer();
+        }
+    }, 1000);
+    updateTimer();
+});
+</script>
+<script src="app.js" defer></script>
+</body>
+</html>
+

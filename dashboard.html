@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PlaceUp Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="pageTransitionOverlay" class="page-transition-overlay"></div>
+
+<div class="container">
+    <nav>
+        <div>PlaceUp Dashboard</div>
+        <div>
+            <a href="index.html" data-nav>Home</a>
+            <a href="mock test.html" data-nav>Mock Test</a>
+            <a href="#" id="signOutBtn">Sign Out</a>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle>Dark Mode</button>
+</nav>
+
+    <div class="header">
+        <div class="greeting">
+            <h1>Welcome Back, <span id="dashboardName">Ananya Prabhakar</span></h1>
+            <p id="dashboardDesc">You're signed in to your PlaceUp account. Keep preparing and tracking your interview progress.</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <small>Interviews Done</small>
+            <strong id="interviewsDone">7</strong>
+            <div class="stat-extra">recent activity</div>
+        </div>
+        <div class="stat-card">
+            <small>Best Score</small>
+            <strong id="bestScore">92%</strong>
+            <div class="stat-extra">from submissions</div>
+        </div>
+        <div class="stat-card">
+            <small>Practice Hours</small>
+            <strong id="practiceHours">7h</strong>
+            <div class="stat-extra">tracked locally</div>
+        </div>
+        <div class="stat-card">
+            <small>Questions Solved</small>
+            <strong id="questionsSolved">40</strong>
+            <div class="stat-extra">total answers</div>
+        </div>
+    </div>
+
+    <section class="progress-panel">
+        <div class="progress-header">
+            <h2>Skill Progress</h2>
+            <a href="https://e66c0a8b-8acc-4b43-b70f-f404dd06ff40-00-13j1x2ity6eif.pike.replit.dev/analytics">View Analytics →</a>
+        </div>
+        <div class="skill-list">
+            <div class="skill-item"><div>Technical Skills</div><div class="skill-score">85%</div></div>
+            <div class="skill-item"><div>Communication</div><div class="skill-score">78%</div></div>
+            <div class="skill-item"><div>Aptitude</div><div class="skill-score">80%</div></div>
+            <div class="skill-item"><div>Confidence</div><div class="skill-score">84%</div></div>
+            <div class="skill-item"><div>Problem Solving</div><div class="skill-score">76%</div></div>
+        </div>
+    </section>
+
+    <div class="profile-panel">
+        <div class="profile-card">
+            <h3>College</h3>
+            <p>CGC Landran</p>
+        </div>
+        <div class="profile-card">
+            <h3>Target Role</h3>
+            <p>Software Engineer</p>
+        </div>
+        <div class="profile-card">
+            <h3>Streak</h3>
+            <p>🔥 7 Days</p>
+        </div>
+        <div class="profile-card">
+            <h3>Rank</h3>
+            <p>#42 / 1,024</p>
+        </div>
+    </div>
+
+    <section class="activities-section">
+        <h2>Recent Activities</h2>
+        <div class="activity-item">
+            <h4>Completed Technical Interview — Score: 88%</h4>
+            <p>Today, 10:30 AM</p>
+        </div>
+        <div class="activity-item">
+            <h4>Practiced HR Round — 12 questions answered</h4>
+            <p>Yesterday, 3:15 PM</p>
+        </div>
+        <div class="activity-item">
+            <h4>Aptitude Test completed — Score: 80%</h4>
+            <p>2 days ago</p>
+        </div>
+        <div class="activity-item">
+            <h4>Reviewed AI Feedback Report</h4>
+            <p>3 days ago</p>
+        </div>
+    </section>
+
+    <section class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="action-grid">
+            <div class="action-card"><div>🎤</div><a href="#">Start Mock Interview ›</a><p>Begin a fresh practice session from here.</p></div>
+            <div class="action-card"><div>📚</div><a href="#">Browse Questions ›</a><p>Explore common interview questions.</p></div>
+            <div class="action-card"><div>📊</div><a href="#">View AI Report ›</a><p>See your latest performance summary.</p></div>
+            <div class="action-card"><div>💡</div><a href="#">Interview Tips ›</a><p>Read quick tips for your next round.</p></div>
+            <div class="action-card"><div>🧹</div><a href="#" id="resetProgressBtn">Reset Progress</a><p>Clear local mock test data and history.</p></div>
+        </div>
+    </section>
+    <script src="app.js" defer></script>
+</body>
+</html>
