@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ace Every Interview with AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<div id="pageTransitionOverlay" class="page-transition-overlay"></div>
+
+<input type="checkbox" id="signin-toggle" class="signin-toggle">
+
+<nav>
+<h2>PlaceUp</h2>
+
+<ul>
+<li><a href="index.html" data-nav>Home</a></li>
+<li><a href="dashboard.html" data-nav>Dashboard</a></li>
+<li><a href="mock test.html" data-nav>Mock Test</a></li>
+<li><a href="reports.html" data-nav>Reports</a></li>
+<li><label class="signin-label" for="signin-toggle">Sign in to your acc</label></li>
+</ul>
+    <button type="button" class="theme-toggle" data-theme-toggle>Dark Mode</button>
+</nav>
+
+<div class="hero">
+    <div class="hero-brand">
+        <div class="hero-logo" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" fill="white" opacity="0.12"/>
+                <path d="M16 34L24 14L32 34H28L26 28H22L20 34H16Z" fill="white"/>
+                <path d="M21 24H27L24 18L21 24Z" fill="#0f3670"/>
+            </svg>
+        </div>
+        <div class="hero-title-group">
+            <div class="hero-title">Ace</div>
+            <div class="hero-subtitle">Every Interview with AI</div>
+        </div>
+    </div>
+    <p class="hero-copy">Practice interviews, improve skills, and track performance.</p>
+    <p id="heroGreeting" class="hero-greeting"></p>
+    <a href="mock test.html" class="btn">Start Mock Test</a>
+</div>
+
+<section>
+<h2>Everything You Need to Succeed!</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Technical Interviews</h3>
+<p>Practice coding and technical questions.</p>
+</div>
+<div class="card">
+<h3>HR Interviews</h3>
+<p>Prepare for common HR rounds.</p>
+</div>
+
+<div class="card">
+<h3>Aptitude Tests</h3>
+<p>Improve reasoning and problem-solving skills.</p>
+</div>
+
+<div class="card">
+<h3>AI Feedback</h3>
+<p>View detailed performance reports.</p>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>Skill Analytics</h2>
+
+<p>Technical Skills - 90%</p>
+<div class="progress">
+<div class="bar" style="width:90%"></div>
+</div>
+
+<br>
+
+<p>Communication - 80%</p>
+<div class="progress">
+<div class="bar" style="width:80%"></div>
+</div>
+
+<br>
+
+<p>Confidence - 85%</p>
+<div class="progress">
+<div class="bar" style="width:85%"></div>
+</div>
+
+</section>
+
+<section>
+<h2>AI Feedback Report Snapshot</h2>
+
+<div class="feedback">
+
+<div class="score">
+<h3>Communication</h3>
+<h1>85%</h1>
+</div>
+
+<div class="score">
+<h3>Technical</h3>
+<h1>90%</h1>
+</div>
+
+<div class="score">
+<h3>Confidence</h3>
+<h1>84%</h1>
+</div>
+
+</div>
+
+</section>
+
+<div class="modal-overlay">
+    <div class="signin-form">
+        <label for="signin-toggle" class="close-modal">&times;</label>
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to continue your interview preparation</p>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <div class="remember-forgot">
+            <label><input type="checkbox"> Remember me</label>
+            <a href="#">Forgot password?</a>
+        </div>
+        <button id="signinBtn" type="button" class="signin-btn">Sign In</button>
+        <div class="signup-link">
+            Don't have an account? <a href="#">Register now</a>
+        </div>
+    </div>
+</div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
